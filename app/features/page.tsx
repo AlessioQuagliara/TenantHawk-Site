@@ -1,17 +1,31 @@
 import type { Metadata } from "next";
 import { MarketingShell } from "@/app/components/marketing-shell";
-import { featuresText, getLocaleFromSearchParams, localize, withLang } from "@/app/lib/i18n";
+import { ctaText, featuresText, getLocaleFromSearchParams, languageAlternates, localize, seoLocaleCode, withLang } from "@/app/lib/i18n";
 import Link from "next/link";
-
-export const metadata: Metadata = {
-  title: "TenantHawk Features",
-  description: "Feature principali TenantHawk per creare SaaS multi-tenant affidabili.",
-  alternates: { canonical: "/features" },
-};
 
 type FeaturesPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
+
+export async function generateMetadata({ searchParams }: FeaturesPageProps): Promise<Metadata> {
+  const locale = await getLocaleFromSearchParams(searchParams);
+
+  return {
+    title: localize(featuresText.seoTitle, locale),
+    description: localize(featuresText.seoDescription, locale),
+    alternates: {
+      canonical: withLang("/features", locale),
+      languages: languageAlternates("/features"),
+    },
+    openGraph: {
+      title: localize(featuresText.seoTitle, locale),
+      description: localize(featuresText.seoDescription, locale),
+      url: withLang("/features", locale),
+      locale: seoLocaleCode[locale],
+      type: "website",
+    },
+  };
+}
 
 export default async function FeaturesPage({ searchParams }: FeaturesPageProps) {
   const locale = await getLocaleFromSearchParams(searchParams);
@@ -36,7 +50,7 @@ export default async function FeaturesPage({ searchParams }: FeaturesPageProps) 
 
       <section className="th-card rounded-2xl p-6 text-sm text-[#b8c2d6]">
         <Link href={withLang("/architecture", locale)} className="underline decoration-[#ffd84d]/70 underline-offset-4 hover:text-[#ffe866]">
-          Explore architecture
+          {localize(ctaText.exploreArchitecture, locale)}
         </Link>
       </section>
     </MarketingShell>

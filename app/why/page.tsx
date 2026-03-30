@@ -1,17 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/app/components/marketing-shell";
-import { getLocaleFromSearchParams, localize, whyText, withLang } from "@/app/lib/i18n";
-
-export const metadata: Metadata = {
-  title: "Why TenantHawk",
-  description: "Perché TenantHawk esiste: ridurre complessita e costruire basi solide.",
-  alternates: { canonical: "/why" },
-};
+import { ctaText, getLocaleFromSearchParams, languageAlternates, localize, seoLocaleCode, whyText, withLang } from "@/app/lib/i18n";
 
 type WhyPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
+
+export async function generateMetadata({ searchParams }: WhyPageProps): Promise<Metadata> {
+  const locale = await getLocaleFromSearchParams(searchParams);
+
+  return {
+    title: localize(whyText.seoTitle, locale),
+    description: localize(whyText.seoDescription, locale),
+    alternates: {
+      canonical: withLang("/why", locale),
+      languages: languageAlternates("/why"),
+    },
+    openGraph: {
+      title: localize(whyText.seoTitle, locale),
+      description: localize(whyText.seoDescription, locale),
+      url: withLang("/why", locale),
+      locale: seoLocaleCode[locale],
+      type: "website",
+    },
+  };
+}
 
 export default async function WhyPage({ searchParams }: WhyPageProps) {
   const locale = await getLocaleFromSearchParams(searchParams);
@@ -40,7 +54,7 @@ export default async function WhyPage({ searchParams }: WhyPageProps) {
 
       <section className="th-card rounded-2xl p-6 text-sm text-[#b8c2d6]">
         <Link href={withLang("/docs", locale)} className="underline decoration-[#ffd84d]/70 underline-offset-4 hover:text-[#ffe866]">
-          Explore docs
+          {localize(ctaText.exploreDocs, locale)}
         </Link>
       </section>
     </MarketingShell>

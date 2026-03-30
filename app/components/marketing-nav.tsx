@@ -71,7 +71,7 @@ export function MarketingNav({ locale, currentPath }: MarketingNavProps) {
               </svg>
             </summary>
 
-            <div className="absolute right-0 z-20 mt-3 w-72 max-w-[90vw] origin-top-right rounded-xl border border-[#2a3448] bg-[#0b111a] p-3 shadow-[0_12px_28px_rgba(0,0,0,0.38)]">
+            <div className="fixed inset-x-4 top-[4.6rem] z-[60] mt-0 max-h-[72vh] w-auto overflow-y-auto rounded-xl border border-[#2a3448] bg-[#0b111a] p-3 shadow-[0_12px_28px_rgba(0,0,0,0.38)]">
               <div className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.16em] text-[#b8c2d6]">
                 {NAV_ITEMS.map((item) => {
                   const isActive = item.href === currentPath;

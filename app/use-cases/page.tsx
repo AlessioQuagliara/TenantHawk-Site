@@ -1,17 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/app/components/marketing-shell";
-import { getLocaleFromSearchParams, localize, useCasesText, withLang } from "@/app/lib/i18n";
-
-export const metadata: Metadata = {
-  title: "TenantHawk Use Cases",
-  description: "Casi d'uso reali dove TenantHawk accelera prodotti multi-tenant.",
-  alternates: { canonical: "/use-cases" },
-};
+import { ctaText, getLocaleFromSearchParams, languageAlternates, localize, seoLocaleCode, useCasesText, withLang } from "@/app/lib/i18n";
 
 type UseCasesPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
+
+export async function generateMetadata({ searchParams }: UseCasesPageProps): Promise<Metadata> {
+  const locale = await getLocaleFromSearchParams(searchParams);
+
+  return {
+    title: localize(useCasesText.seoTitle, locale),
+    description: localize(useCasesText.seoDescription, locale),
+    alternates: {
+      canonical: withLang("/use-cases", locale),
+      languages: languageAlternates("/use-cases"),
+    },
+    openGraph: {
+      title: localize(useCasesText.seoTitle, locale),
+      description: localize(useCasesText.seoDescription, locale),
+      url: withLang("/use-cases", locale),
+      locale: seoLocaleCode[locale],
+      type: "website",
+    },
+  };
+}
 
 export default async function UseCasesPage({ searchParams }: UseCasesPageProps) {
   const locale = await getLocaleFromSearchParams(searchParams);
@@ -36,7 +50,7 @@ export default async function UseCasesPage({ searchParams }: UseCasesPageProps) 
 
       <section className="th-card rounded-2xl p-6 text-sm text-[#b8c2d6]">
         <Link href={withLang("/features", locale)} className="underline decoration-[#ffd84d]/70 underline-offset-4 hover:text-[#ffe866]">
-          See all features
+          {localize(ctaText.seeAllFeatures, locale)}
         </Link>
       </section>
     </MarketingShell>

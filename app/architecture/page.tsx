@@ -1,17 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingShell } from "@/app/components/marketing-shell";
-import { architectureText, getLocaleFromSearchParams, localize, withLang } from "@/app/lib/i18n";
-
-export const metadata: Metadata = {
-  title: "TenantHawk Architecture",
-  description: "Dettaglio tecnico dell'architettura TenantHawk per SaaS multi-tenant.",
-  alternates: { canonical: "/architecture" },
-};
+import { architectureText, ctaText, getLocaleFromSearchParams, languageAlternates, localize, seoLocaleCode, withLang } from "@/app/lib/i18n";
 
 type ArchitecturePageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
+
+export async function generateMetadata({ searchParams }: ArchitecturePageProps): Promise<Metadata> {
+  const locale = await getLocaleFromSearchParams(searchParams);
+
+  return {
+    title: localize(architectureText.seoTitle, locale),
+    description: localize(architectureText.seoDescription, locale),
+    alternates: {
+      canonical: withLang("/architecture", locale),
+      languages: languageAlternates("/architecture"),
+    },
+    openGraph: {
+      title: localize(architectureText.seoTitle, locale),
+      description: localize(architectureText.seoDescription, locale),
+      url: withLang("/architecture", locale),
+      locale: seoLocaleCode[locale],
+      type: "website",
+    },
+  };
+}
 
 export default async function ArchitecturePage({ searchParams }: ArchitecturePageProps) {
   const locale = await getLocaleFromSearchParams(searchParams);
@@ -44,7 +58,7 @@ export default async function ArchitecturePage({ searchParams }: ArchitecturePag
         <p className="mt-3 text-sm leading-7 text-[#b8c2d6] sm:text-base">{localize(architectureText.philosophyBody, locale)}</p>
         <div className="mt-6 text-sm text-[#b8c2d6]">
           <Link href={withLang("/why", locale)} className="underline decoration-[#ffd84d]/70 underline-offset-4 hover:text-[#ffe866]">
-            Read the story behind TenantHawk
+            {localize(ctaText.readStory, locale)}
           </Link>
         </div>
       </section>

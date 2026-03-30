@@ -47,7 +47,7 @@ export function DocsSidebar({ locale }: DocsSidebarProps) {
               ))}
             </ul>
             <Link href={withLang("/", locale)} className="mt-3 inline-flex text-sm text-[#ffe866] hover:text-[#fff3a8]">
-              Torna alla home
+              {localize(t("Torna alla home", "Back to home", "Volver al inicio"), locale)}
             </Link>
           </nav>
         </details>
@@ -55,7 +55,7 @@ export function DocsSidebar({ locale }: DocsSidebarProps) {
 
       <aside className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
         <div className="th-card max-h-[calc(100vh-8rem)] w-full overflow-y-auto rounded-[1.75rem] border border-[#2a3448] p-5">
-          <p className="text-[11px] uppercase tracking-[0.24em] text-[#ffd84d]">TenantHawk Docs</p>
+          <p className="text-[11px] uppercase tracking-[0.24em] text-[#ffd84d]">{localize(t("TenantHawk Docs", "TenantHawk Docs", "TenantHawk Docs"), locale)}</p>
           <h2 className="mt-2 text-lg font-semibold text-[#f7f9fc]">
             {localize(t("Percorso operativo", "Operational path", "Ruta operativa"), locale)}
           </h2>
@@ -80,7 +80,7 @@ export function DocsSidebar({ locale }: DocsSidebarProps) {
 
           <div className="mt-5 border-t border-[#2a3448] pt-4">
             <Link href={withLang("/", locale)} className="text-sm text-[#b8c2d6] hover:text-[#ffe866]">
-              Torna alla home
+              {localize(t("Torna alla home", "Back to home", "Volver al inicio"), locale)}
             </Link>
           </div>
         </div>

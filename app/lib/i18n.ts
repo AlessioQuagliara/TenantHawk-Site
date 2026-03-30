@@ -57,14 +57,32 @@ export const navText = {
   useCases: t("Casi d'uso", "Use Cases", "Casos de uso"),
   architecture: t("Architettura", "Architecture", "Arquitectura"),
   why: t("Perché", "Why", "Por que"),
-  pricing: t("Pricing", "Pricing", "Precios"),
   docs: t("Docs", "Docs", "Docs"),
 };
+
+export const seoLocaleCode: Record<Locale, string> = {
+  it: "it_IT",
+  en: "en_US",
+  es: "es_ES",
+};
+
+export function languageAlternates(path: string): Record<string, string> {
+  return {
+    "it-IT": withLang(path, "it"),
+    "en-US": withLang(path, "en"),
+    "es-ES": withLang(path, "es"),
+  };
+}
 
 export const commonText = {
   siteTagline: t("Multi-tenant SaaS senza complessita inutile", "Multi-tenant SaaS without unnecessary complexity", "SaaS multi-tenant sin complejidad innecesaria"),
   creator: t("Creatore", "Creator", "Creador"),
   creatorName: t("Alessio Quagliara", "Alessio Quagliara", "Alessio Quagliara"),
+  creatorByline: t(
+    "Template open source MIT creato da Alessio Quagliara",
+    "MIT open source template created by Alessio Quagliara",
+    "Template open source MIT creado por Alessio Quagliara"
+  ),
   footer: t(
     "TenantHawk | Open Source MIT | Creato da Alessio Quagliara",
     "TenantHawk | MIT Open Source | Created by Alessio Quagliara",
@@ -72,16 +90,26 @@ export const commonText = {
   ),
 };
 
+export const ctaText = {
+  latestReleases: t("Ultime release", "Latest releases", "Ultimos releases"),
+  openRelease: t("Apri release su GitHub", "Open release on GitHub", "Abrir release en GitHub"),
+  exploreArchitecture: t("Esplora architettura", "Explore architecture", "Explorar arquitectura"),
+  seeAllFeatures: t("Vedi tutte le feature", "See all features", "Ver todas las funciones"),
+  exploreDocs: t("Esplora docs", "Explore docs", "Explorar docs"),
+  readStory: t("Leggi la storia di TenantHawk", "Read the story behind TenantHawk", "Lee la historia de TenantHawk"),
+  changelog: t("Changelog", "Changelog", "Changelog"),
+};
+
 export const homeText = {
   seoTitle: t(
-    "TenantHawk - Multi-tenant SaaS senza complessita inutile",
-    "TenantHawk - Multi-tenant SaaS without unnecessary complexity",
-    "TenantHawk - SaaS multi-tenant sin complejidad innecesaria"
+    "TenantHawk - Template SaaS multi-tenant open source MIT",
+    "TenantHawk - Open Source MIT Multi-tenant SaaS Template",
+    "TenantHawk - Template SaaS multi-tenant open source MIT"
   ),
   seoDescription: t(
-    "Base SaaS multi-tenant per costruire prodotti reali senza reinventare autenticazione, routing e gestione tenant.",
-    "Multi-tenant SaaS foundation to build real products without reinventing auth, routing and tenant management.",
-    "Base SaaS multi-tenant para crear productos reales sin reinventar autenticacion, routing y gestion de tenants."
+    "Template SaaS multi-tenant open source MIT creato da Alessio Quagliara: FastAPI, Next.js, Stripe, n8n, Traefik e LiteLLM.",
+    "MIT open source multi-tenant SaaS template by Alessio Quagliara: FastAPI, Next.js, Stripe, n8n, Traefik and LiteLLM.",
+    "Template SaaS multi-tenant open source MIT creado por Alessio Quagliara: FastAPI, Next.js, Stripe, n8n, Traefik y LiteLLM."
   ),
   h1: t(
     "TenantHawk - Multi-tenant SaaS senza complessita inutile",
@@ -351,7 +379,7 @@ export const pricingText = {
 };
 
 export const docsText = {
-  seoTitle: t("TenantHawk Docs", "TenantHawk Docs", "TenantHawk Docs"),
+  seoTitle: t("TenantHawk Docs - Guida Template SaaS", "TenantHawk Docs - SaaS Template Guide", "TenantHawk Docs - Guia del Template SaaS"),
   seoDescription: t(
     "Documentazione completa TenantHawk: stack tecnico, avvio progetto, codice fondamentale e best practices.",
     "Complete TenantHawk documentation: tech stack, project setup, core code and best practices.",

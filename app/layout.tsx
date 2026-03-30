@@ -20,9 +20,12 @@ export const metadata: Metadata = {
     template: "%s | TenantHawk",
   },
   description:
-    "TenantHawk e un template SaaS multi-tenant open source (MIT): FastAPI backend, Next.js landing, Stripe billing, n8n automation, Traefik reverse proxy e LiteLLM.",
+    "TenantHawk e un template SaaS multi-tenant open source MIT creato da Alessio Quagliara: FastAPI backend, Next.js marketing site, Stripe billing, n8n automation, Traefik e LiteLLM.",
   keywords: [
     "TenantHawk",
+    "multi-tenant SaaS template",
+    "open source SaaS template",
+    "MIT SaaS template",
     "FastAPI",
     "Next.js",
     "SaaS template",
@@ -32,11 +35,11 @@ export const metadata: Metadata = {
     "LinkBayCMS",
   ],
   alternates: {
-    canonical: "/",
+    canonical: "/?lang=it",
     languages: {
-      "it-IT": "/",
-      "en-US": "/",
-      "es-ES": "/",
+      "it-IT": "/?lang=it",
+      "en-US": "/?lang=en",
+      "es-ES": "/?lang=es",
     },
   },
   icons: {
@@ -52,15 +55,15 @@ export const metadata: Metadata = {
     url: "https://tenanthawk.alessioquagliara.com",
     siteName: "TenantHawk",
     locale: "it_IT",
-    title: "TenantHawk | Fast Multi-Tenant SaaS Template",
+    title: "TenantHawk | Multi-Tenant SaaS Template Open Source",
     description:
-      "Build and ship a production-ready SaaS faster: FastAPI + admin + infra + marketing landing.",
+      "MIT open source multi-tenant SaaS template by Alessio Quagliara with FastAPI, Next.js, Stripe, n8n, Traefik and LiteLLM.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TenantHawk | Fast Multi-Tenant SaaS Template",
+    title: "TenantHawk | Multi-Tenant SaaS Template Open Source",
     description:
-      "Open source MIT template by Alessio Quagliara. FastAPI, Stripe, n8n, Traefik, LiteLLM and Next.js.",
+      "Open source MIT multi-tenant SaaS template by Alessio Quagliara.",
   },
   creator: "Alessio Quagliara",
   authors: [{ name: "Alessio Quagliara" }],

@@ -2,23 +2,49 @@ import Link from "next/link";
 import Image from "next/image";
 import { MarketingShell } from "@/app/components/marketing-shell";
 import type { Metadata } from "next";
-import { getLocaleFromSearchParams, homeText, localize, navText, withLang } from "@/app/lib/i18n";
+import {
+  commonText,
+  ctaText,
+  getLocaleFromSearchParams,
+  homeText,
+  languageAlternates,
+  localize,
+  navText,
+  seoLocaleCode,
+  withLang,
+} from "@/app/lib/i18n";
 import { getRepositorySlug } from "@/app/lib/github";
-
-export const metadata: Metadata = {
-  title: "TenantHawk - Multi-tenant SaaS senza complessita inutile",
-  description:
-    "Costruisci SaaS multi-tenant piu velocemente con base FastAPI, HTMX, Traefik e integrazione GitHub release.",
-  alternates: {
-    canonical: "/",
-  },
-};
-
-export const revalidate = 3600;
 
 type HomeProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
+
+export async function generateMetadata({ searchParams }: HomeProps): Promise<Metadata> {
+  const locale = await getLocaleFromSearchParams(searchParams);
+
+  return {
+    title: localize(homeText.seoTitle, locale),
+    description: localize(homeText.seoDescription, locale),
+    alternates: {
+      canonical: withLang("/", locale),
+      languages: languageAlternates("/"),
+    },
+    openGraph: {
+      title: localize(homeText.seoTitle, locale),
+      description: localize(homeText.seoDescription, locale),
+      url: withLang("/", locale),
+      locale: seoLocaleCode[locale],
+      type: "website",
+    },
+    twitter: {
+      title: localize(homeText.seoTitle, locale),
+      description: localize(homeText.seoDescription, locale),
+      card: "summary_large_image",
+    },
+  };
+}
+
+export const revalidate = 3600;
 
 export default async function Home({ searchParams }: HomeProps) {
   const locale = await getLocaleFromSearchParams(searchParams);
@@ -31,10 +57,20 @@ export default async function Home({ searchParams }: HomeProps) {
       {
         "@type": "SoftwareApplication",
         name: "TenantHawk",
+        description: localize(homeText.seoDescription, locale),
+        keywords: "multi-tenant SaaS template, open source SaaS template, MIT",
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web",
         license: "https://opensource.org/license/mit/",
         url: "https://tenanthawk.alessioquagliara.com",
+        author: {
+          "@type": "Person",
+          name: "Alessio Quagliara",
+        },
+        publisher: {
+          "@type": "Person",
+          name: "Alessio Quagliara",
+        },
         creator: {
           "@type": "Person",
           name: "Alessio Quagliara",
@@ -74,6 +110,9 @@ export default async function Home({ searchParams }: HomeProps) {
             <p className="mt-6 max-w-2xl text-base leading-8 text-[#d8dfec] sm:text-lg">
               {localize(homeText.subtitle, locale)}
             </p>
+            <p className="mt-3 text-xs uppercase tracking-[0.16em] text-[#9fadca]">
+              {localize(commonText.creatorByline, locale)}
+            </p>
             <div className="mt-8 flex flex-wrap gap-3 text-sm">
               <a
                 href={repoUrl}
@@ -93,7 +132,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 href={withLang("/changelog", locale)}
                 className="rounded-full border border-[#2a3448] px-6 py-3 font-semibold uppercase tracking-[0.12em] text-[#f4f7fb] transition hover:border-[#ffd84d]"
               >
-                Latest releases
+                {localize(ctaText.latestReleases, locale)}
               </Link>
             </div>
           </div>
@@ -159,7 +198,7 @@ export default async function Home({ searchParams }: HomeProps) {
             {localize(navText.docs, locale)}
           </Link>
           <Link href={withLang("/changelog", locale)} className="rounded-full border border-[#2a3448] px-5 py-2 text-sm text-[#f4f7fb] hover:border-[#ffd84d]">
-            Latest releases
+            {localize(ctaText.latestReleases, locale)}
           </Link>
         </div>
         <div className="mt-6 text-sm text-[#b8c2d6]">
